@@ -1,0 +1,46 @@
+const sudoku_core = require('./sudoku_core');
+
+test('constructSudokuGrid can parse a valid input string', () => {
+    let inputString = '016002400320009000040103000005000069009050300630000800000306010000400072004900680';
+    let expectedGrid = [
+        [ 0, 1, 6, 0, 0, 2, 4, 0, 0 ],
+        [ 3, 2, 0, 0, 0, 9, 0, 0, 0 ],
+        [ 0, 4, 0, 1, 0, 3, 0, 0, 0 ],
+        [ 0, 0, 5, 0, 0, 0, 0, 6, 9 ],
+        [ 0, 0, 9, 0, 5, 0, 3, 0, 0 ],
+        [ 6, 3, 0, 0, 0, 0, 8, 0, 0 ],
+        [ 0, 0, 0, 3, 0, 6, 0, 1, 0 ],
+        [ 0, 0, 0, 4, 0, 0, 0, 7, 2 ],
+        [ 0, 0, 4, 9, 0, 0, 6, 8, 0 ]
+    ];
+    expect(sudoku_core.constructSudokuGrid(inputString)).toEqual(expectedGrid);
+});
+
+
+test('extractBoxesFromGrid can extract boxes from a valid grid', () => {
+    let validGrid = [
+        [ 0, 1, 6, 0, 0, 2, 4, 0, 0 ],
+        [ 3, 2, 0, 0, 0, 9, 0, 0, 0 ],
+        [ 0, 4, 0, 1, 0, 3, 0, 0, 0 ],
+        [ 0, 0, 5, 0, 0, 0, 0, 6, 9 ],
+        [ 0, 0, 9, 0, 5, 0, 3, 0, 0 ],
+        [ 6, 3, 0, 0, 0, 0, 8, 0, 0 ],
+        [ 0, 0, 0, 3, 0, 6, 0, 1, 0 ],
+        [ 0, 0, 0, 4, 0, 0, 0, 7, 2 ],
+        [ 0, 0, 4, 9, 0, 0, 6, 8, 0 ]
+    ];
+
+    let expectedBoxes = {
+        box_0_0: [ 0, 1, 6, 3, 2, 0, 0, 4, 0 ],
+        box_0_1: [ 0, 0, 2, 0, 0, 9, 1, 0, 3 ],
+        box_0_2: [ 4, 0, 0, 0, 0, 0, 0, 0, 0 ],
+        box_1_0: [ 0, 0, 5, 0, 0, 9, 6, 3, 0 ],
+        box_1_1: [ 0, 0, 0, 0, 5, 0, 0, 0, 0 ],
+        box_1_2: [ 0, 6, 9, 3, 0, 0, 8, 0, 0 ],
+        box_2_0: [ 0, 0, 0, 0, 0, 0, 0, 0, 4 ],
+        box_2_1: [ 3, 0, 6, 4, 0, 0, 9, 0, 0 ],
+        box_2_2: [ 0, 1, 0, 0, 7, 2, 6, 8, 0 ]
+    }
+
+    expect(sudoku_core.extractBoxesFromGrid(validGrid)).toEqual(expectedBoxes);
+});
