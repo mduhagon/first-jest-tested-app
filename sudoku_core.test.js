@@ -71,6 +71,52 @@ test('extractBoxesFromGrid can extract boxes from a valid grid', () => {
 });
 
 
+test('getRelatedRowCells returns the correct row cells for a valid grid', () => {
+    let validGridInts = [
+        [ 0, 1, 6, 0, 0, 2, 4, 0, 0 ],
+        [ 3, 2, 0, 0, 0, 9, 0, 0, 0 ],
+        [ 0, 4, 0, 1, 0, 3, 0, 0, 0 ],
+        [ 0, 0, 5, 0, 0, 0, 0, 6, 9 ],
+        [ 0, 0, 9, 0, 5, 0, 3, 0, 0 ],
+        [ 6, 3, 0, 0, 0, 0, 8, 0, 0 ],
+        [ 0, 0, 0, 3, 0, 6, 0, 1, 0 ],
+        [ 0, 0, 0, 4, 0, 0, 0, 7, 2 ],
+        [ 0, 0, 4, 9, 0, 0, 6, 8, 0 ]
+    ];
+    let validGrid = intGridToCellGrid(validGridInts);
+
+    let expectedCells = intArrayToCellArray([ 3, 2, 0, 0, 0, 9, 0, 0, 0 ]);
+
+    expect(sudoku_core.getRelatedRowCells(validGrid, 1, 3)).toEqual(expectedCells);
+});
+
+test('getRelatedColCells returns the correct column cells for a valid grid', () => {
+    let validGridInts = [
+        [ 0, 1, 6, 0, 0, 2, 4, 0, 0 ],
+        [ 3, 2, 0, 0, 0, 9, 0, 0, 0 ],
+        [ 0, 4, 0, 1, 0, 3, 0, 0, 0 ],
+        [ 0, 0, 5, 0, 0, 0, 0, 6, 9 ],
+        [ 0, 0, 9, 0, 5, 0, 3, 0, 0 ],
+        [ 6, 3, 0, 0, 0, 0, 8, 0, 0 ],
+        [ 0, 0, 0, 3, 0, 6, 0, 1, 0 ],
+        [ 0, 0, 0, 4, 0, 0, 0, 7, 2 ],
+        [ 0, 0, 4, 9, 0, 0, 6, 8, 0 ]
+    ];
+    let validGrid = intGridToCellGrid(validGridInts);
+
+    let expectedCells = intArrayToCellArray([ 1, 2, 3, 4, 5, 6, 7, 8, 9 ]); //FIXME
+
+    expect(sudoku_core.getRelatedRowCells(validGrid, 1, 3)).toEqual(expectedCells);
+});
+
+test('getDuplicateCells returns all expected cells for a list with duplicates', () => {
+    //WRITE TEST
+});
+
+test('getDuplicateCells returns empty for a list with no duplicates', () => {
+    //WRITE TEST
+});
+
 // Helper functions:
 
 // This is used for the expected grids on the tests,

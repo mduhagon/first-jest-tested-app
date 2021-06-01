@@ -73,6 +73,29 @@ function getBoxSubArray(boxRow, boxCol, sudokuGrid) {
     return subArray;
 }
 
+// Given a sudokuGrid like the one produced by constructSudokuGrid(),
+// And the row Index and Cell Index of a selected cell, we want to return 
+// An Array containing all the cells in the same ROW as the selected one
+function getRelatedRowCells(sudokuGrid, selectedCellRow, selectedCellCol) {
+    return []; //TODO!
+}
+
+// Given a sudokuGrid like the one produced by constructSudokuGrid(),
+// And the row Index and Cell Index of a selected cell, we want to return 
+// An Array containing all the cells in the same COLUMN as the selected one
+function getRelatedColCells(sudokuGrid, selectedCellRow, selectedCellCol) {
+    return []; //TODO!
+}
+
+// Given an Array of N cells (uni-dimensional)
+// Return a new array containing all cells with duplicate value (a value that occurs more than once)
+// If there are no duplicates return an empty array
+function getDuplicateCells(cellArray) {
+    return []; //TODO!
+}
+
+// This defines which functions inside this file/module are 
+// Visible (and usable) from the outside (ie from the tests class, or from our program logic)
 module.exports = {
     createCell,
     constructSudokuGrid,
