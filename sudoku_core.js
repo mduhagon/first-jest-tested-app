@@ -1,10 +1,20 @@
 
-// Given a string with all the numbers of a full Sudoku grid (82 numbers)
-// It will return a Two-dimensional Array with the values (as integers)
+// Given a string with all the numbers of a full Sudoku grid (81 numbers)
+// It will return a Two-dimensional Array with the values (as integers).
 // 0 is a valid value an represents an empty cell.
+// '016002400';
+
 function constructSudokuGrid(sudokuString) {
     var sudokuGame = [];
     var iter = 0;
+
+    //validate sudokuString:
+    // - Each character needs to be a number between 0 and 9 
+    // - Needs to be 81 characters long
+    const validSudokuStringRegex = /^[0-9]{81}$/;
+    if (!sudokuString.match(validSudokuStringRegex)) {
+        throw new TypeError('sudokuString invalid');
+    }
 
     for (let rows = 0; rows < 9; rows++) {
         var sudokuRow = [];

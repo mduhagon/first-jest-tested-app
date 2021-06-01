@@ -17,6 +17,28 @@ test('constructSudokuGrid can parse a valid input string', () => {
 });
 
 
+test('constructSudokuGrid gets an input that is too long and throws TypeError', () => {
+    let inputString = '016002400320009000040103000005000069009050300630000800000306010000400072004900680AKHKJHKJHAKDHKJHADKHKSJDHKJDHSJHDKSDHK';
+    expect(() => { sudoku_core.constructSudokuGrid(inputString) }).toThrow(TypeError);
+});
+
+
+test('constructSudokuGrid gets a number and throws TypeError', () => {
+    let inputNumber = 13;
+    expect(() => { sudoku_core.constructSudokuGrid(inputNumber) }).toThrow(TypeError);
+});
+
+test('constructSudokuGrid gets a string that is too short and throws TypeError', () => {
+    let inputString = '123456'; // inputString[0] = 1 
+    expect(() => { sudoku_core.constructSudokuGrid(inputString) }).toThrow(TypeError);
+});
+
+test('constructSudokuGrid gets a string with invalid characters or not a number and throws TypeError', () => {
+    let inputString = 'ABC002400320009000040103000005000069009050300630000800000306010000400072004900680'; // inputString[0] = 1 
+    expect(() => { sudoku_core.constructSudokuGrid(inputString) }).toThrow(TypeError);
+});
+
+
 test('extractBoxesFromGrid can extract boxes from a valid grid', () => {
     let validGrid = [
         [ 0, 1, 6, 0, 0, 2, 4, 0, 0 ],
