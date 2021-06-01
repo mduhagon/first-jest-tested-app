@@ -99,5 +99,8 @@ function getDuplicateCells(cellArray) {
 module.exports = {
     createCell,
     constructSudokuGrid,
-    extractBoxesFromGrid
+    extractBoxesFromGrid,
+    getRelatedRowCells,
+    getRelatedColCells,
+    getDuplicateCells
  };
