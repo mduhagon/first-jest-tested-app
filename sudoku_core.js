@@ -1,9 +1,19 @@
+// In order to implement all the functionalities of our Sudoku game,
+// We need to keep more information for each 'cell' of the grid, not only
+// its value (the number from 0 to 9). Therefore, we will use a Javascript
+// object, and we can later add all the properties we may need inside it.
+// our SudokuGrid will hold cell objects and not plain ints.
+// createCell is a 'factory' method that initializes a cell object
+// given a set of properties (only cellValue to start).
+function createCell(cellValue) {
+    return {
+        value: cellValue
+    }
+}
 
 // Given a string with all the numbers of a full Sudoku grid (81 numbers)
 // It will return a Two-dimensional Array with the values (as integers).
 // 0 is a valid value an represents an empty cell.
-// '016002400';
-
 function constructSudokuGrid(sudokuString) {
     var sudokuGame = [];
     var iter = 0;
@@ -20,7 +30,7 @@ function constructSudokuGrid(sudokuString) {
         var sudokuRow = [];
         for (let cols = 0; cols < 9; cols++) {
           // push cell value
-          sudokuRow.push(parseInt(sudokuString[iter])); 
+          sudokuRow.push(createCell(parseInt(sudokuString[iter]))); 
           iter += 1;
         }  
         sudokuGame.push(sudokuRow);
@@ -64,6 +74,7 @@ function getBoxSubArray(boxRow, boxCol, sudokuGrid) {
 }
 
 module.exports = {
+    createCell,
     constructSudokuGrid,
     extractBoxesFromGrid
  };
