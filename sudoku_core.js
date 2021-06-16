@@ -77,21 +77,60 @@ function getBoxSubArray(boxRow, boxCol, sudokuGrid) {
 // And the row Index and Cell Index of a selected cell, we want to return 
 // An Array containing all the cells in the same ROW as the selected one
 function getRelatedRowCells(sudokuGrid, selectedCellRow, selectedCellCol) {
-    return []; //TODO!
+    let rowCells = [];
+    for (let i = 0; i < 9; i++) {
+        rowCells.push(sudokuGrid[selectedCellRow][i]);
+    }
+    return rowCells;
 }
 
 // Given a sudokuGrid like the one produced by constructSudokuGrid(),
 // And the row Index and Cell Index of a selected cell, we want to return 
 // An Array containing all the cells in the same COLUMN as the selected one
 function getRelatedColCells(sudokuGrid, selectedCellRow, selectedCellCol) {
-    return []; //TODO!
+    let colCells = [];
+    for (let i = 0; i < 9; i++) {
+        colCells.push(sudokuGrid[i][selectedCellCol]);
+    }
+    return colCells;
+}
+
+function getRelatedBoxCells(boxes, selectedCellRow, selectedCellCol) {
+    let boxCells = [];
+    let boxIndex = getBoxIndex(selectedCellRow, selectedCellCol);
+    let boxArray = boxes[boxIndex];
+
+    for (let i = 0; i < boxArray.length; i++) {
+        boxCells.push(boxArray[i]);
+    }
+    return boxCells;
+}
+
+// given a cell, retuns which box it belongs to,    
+// the boxIndex can be used as an index / key for this.boxes
+function getBoxIndex(cellRowIndex, cellColIndex) {
+    let rowBoxIdx = (cellRowIndex/3>>0);
+    let colBoxIdx = (cellColIndex/3>>0);
+    return 'box_' + rowBoxIdx + '_' + colBoxIdx;
 }
 
 // Given an Array of N cells (uni-dimensional)
 // Return a new array containing all cells with duplicate value (a value that occurs more than once)
 // If there are no duplicates return an empty array
 function getDuplicateCells(cellArray) {
-    return []; //TODO!
+    let duplicates = [];
+    for (let i = 0; i < cellArray.length; i++) {
+        let current = cellArray[i];
+        if (current.value == 0) continue; // 0 is the special empty value, does not count as duplicate
+        for (let y = 0; y < cellArray.length; y++) {
+            if (i != y && current.value === cellArray[y].value) {
+                //current is duplicate, store in result and move on to next element
+                duplicates.push(current);
+                break;
+            }
+        }    
+    }
+    return duplicates;
 }
 
 // This defines which functions inside this file/module are 
@@ -102,5 +141,7 @@ module.exports = {
     extractBoxesFromGrid,
     getRelatedRowCells,
     getRelatedColCells,
-    getDuplicateCells
+    getDuplicateCells,
+    getRelatedBoxCells,
+    getBoxIndex
  };

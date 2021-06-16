@@ -104,17 +104,121 @@ test('getRelatedColCells returns the correct column cells for a valid grid', () 
     ];
     let validGrid = intGridToCellGrid(validGridInts);
 
-    let expectedCells = intArrayToCellArray([ 1, 2, 3, 4, 5, 6, 7, 8, 9 ]); //FIXME
+    let expectedCells = intArrayToCellArray([ 0, 0, 1, 0, 0, 0, 3, 4, 9 ]); 
 
-    expect(sudoku_core.getRelatedRowCells(validGrid, 1, 3)).toEqual(expectedCells);
+    expect(sudoku_core.getRelatedColCells(validGrid, 1, 3)).toEqual(expectedCells);
 });
 
 test('getDuplicateCells returns all expected cells for a list with duplicates', () => {
-    //WRITE TEST
+    let inputCells = intArrayToCellArray([ 1, 0, 1, 0, 2, 0, 3, 3, 3 ]);
+    let expectedCells = intArrayToCellArray([ 1, 1, 3, 3, 3 ]);
+
+    expect(sudoku_core.getDuplicateCells(inputCells)).toEqual(expectedCells);
 });
 
 test('getDuplicateCells returns empty for a list with no duplicates', () => {
-    //WRITE TEST
+    let inputCells = intArrayToCellArray([ 1, 2, 3, 4, 5, 6, 7, 8, 9 ]);
+    let expectedCells = [];
+
+    expect(sudoku_core.getDuplicateCells(inputCells)).toEqual(expectedCells);
+});
+
+test('getDuplicateCells will not return 0s as duplicates', () => {
+    let inputCells = intArrayToCellArray([ 0, 0, 0, 0 ]);
+    let expectedCells = [];
+
+    expect(sudoku_core.getDuplicateCells(inputCells)).toEqual(expectedCells);
+});
+
+test('getBoxIndex for cell in 1st box returns box_0_0', () => {
+    let cellRowIndex = 0;
+    let cellColIndex = 0;
+    let expectedBoxIndex = 'box_0_0';
+
+    expect(sudoku_core.getBoxIndex(cellRowIndex, cellColIndex)).toEqual(expectedBoxIndex);
+});
+
+test('getBoxIndex for cell in 2nd box returns box_0_1', () => {
+    let cellRowIndex = 1;
+    let cellColIndex = 5;
+    let expectedBoxIndex = 'box_0_1';
+
+    expect(sudoku_core.getBoxIndex(cellRowIndex, cellColIndex)).toEqual(expectedBoxIndex);
+});
+
+test('getBoxIndex for cell in 3rd box returns box_0_2', () => {
+    let cellRowIndex = 2;
+    let cellColIndex = 8;
+    let expectedBoxIndex = 'box_0_2';
+
+    expect(sudoku_core.getBoxIndex(cellRowIndex, cellColIndex)).toEqual(expectedBoxIndex);
+});
+
+test('getBoxIndex for cell in 4th box returns box_1_0', () => {
+    let cellRowIndex = 4;
+    let cellColIndex = 0;
+    let expectedBoxIndex = 'box_1_0';
+
+    expect(sudoku_core.getBoxIndex(cellRowIndex, cellColIndex)).toEqual(expectedBoxIndex);
+});
+
+test('getBoxIndex for cell in 5th box returns box_1_1', () => {
+    let cellRowIndex = 5;
+    let cellColIndex = 3;
+    let expectedBoxIndex = 'box_1_1';
+
+    expect(sudoku_core.getBoxIndex(cellRowIndex, cellColIndex)).toEqual(expectedBoxIndex);
+});
+
+test('getBoxIndex for cell in 6th box returns box_1_2', () => {
+    let cellRowIndex = 3;
+    let cellColIndex = 6;
+    let expectedBoxIndex = 'box_1_2';
+
+    expect(sudoku_core.getBoxIndex(cellRowIndex, cellColIndex)).toEqual(expectedBoxIndex);
+});
+
+test('getBoxIndex for cell in 7th box returns box_2_0', () => {
+    let cellRowIndex = 6;
+    let cellColIndex = 0;
+    let expectedBoxIndex = 'box_2_0';
+
+    expect(sudoku_core.getBoxIndex(cellRowIndex, cellColIndex)).toEqual(expectedBoxIndex);
+});
+
+test('getBoxIndex for cell in 8th box returns box_2_1', () => {
+    let cellRowIndex = 7;
+    let cellColIndex = 3;
+    let expectedBoxIndex = 'box_2_1';
+
+    expect(sudoku_core.getBoxIndex(cellRowIndex, cellColIndex)).toEqual(expectedBoxIndex);
+});
+
+test('getBoxIndex for cell in 9th box returns box_2_2', () => {
+    let cellRowIndex = 8;
+    let cellColIndex = 8;
+    let expectedBoxIndex = 'box_2_2';
+
+    expect(sudoku_core.getBoxIndex(cellRowIndex, cellColIndex)).toEqual(expectedBoxIndex);
+});
+
+test('getRelatedBoxCells returns expected cells', () => {
+    let validBoxes = {
+        box_0_0: intArrayToCellArray([ 0, 1, 6, 3, 2, 0, 0, 4, 0 ]),
+        box_0_1: intArrayToCellArray([ 0, 0, 2, 0, 0, 9, 1, 0, 3 ]),
+        box_0_2: intArrayToCellArray([ 4, 0, 0, 0, 0, 0, 0, 0, 0 ]),
+        box_1_0: intArrayToCellArray([ 0, 0, 5, 0, 0, 9, 6, 3, 0 ]),
+        box_1_1: intArrayToCellArray([ 0, 0, 0, 0, 5, 0, 0, 0, 0 ]),
+        box_1_2: intArrayToCellArray([ 0, 6, 9, 3, 0, 0, 8, 0, 0 ]),
+        box_2_0: intArrayToCellArray([ 0, 0, 0, 0, 0, 0, 0, 0, 4 ]),
+        box_2_1: intArrayToCellArray([ 3, 0, 6, 4, 0, 0, 9, 0, 0 ]),
+        box_2_2: intArrayToCellArray([ 0, 1, 0, 0, 7, 2, 6, 8, 0 ])
+    }
+    let cellRowIndex = 5;
+    let cellColIndex = 5;
+    let expectedCells = validBoxes['box_1_1'];
+
+    expect(sudoku_core.getRelatedBoxCells(validBoxes, cellRowIndex, cellColIndex)).toEqual(expectedCells);
 });
 
 // Helper functions:
